@@ -1,4 +1,4 @@
-# motoring-meter-web-app
+# Motoring meter web app
 
 ### About:
 This web application let's users to input distance and speed of a ride with a selected car and based on those inputs the application shows how much is the fuel consumption and duration of the ride. This project uses Docker Compose tool/configuration for defining and running two services. 
