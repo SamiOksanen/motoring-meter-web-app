@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+    motoring-meter-api:
+        build: 
+            context: ./motoring-meter-api
+            dockerfile: Dockerfile
+        volumes:
+            - ./motoring-meter-api:/usr/src/app
+            - /usr/src/app/node_modules
+        ports:
+            - 3001:3001
+        networks: 
+            motoring-meter-dev-net: 
+                aliases: 
+                    - motoring-meter-api
+    motoring-meter-ui:
+        build: 
+            context: ./motoring-meter-ui
+            dockerfile: Dockerfile
+        volumes:
+            - ./motoring-meter-ui:/usr/src/app:rw
+            - /usr/src/app/node_modules
+        ports:
+            - 3000:3000
+        networks: 
+            - motoring-meter-dev-net
+        environment:
+            - CHOKIDAR_USEPOLLING=true
+networks: 
+    motoring-meter-dev-net:
+        name: motoring-meter-dev-net

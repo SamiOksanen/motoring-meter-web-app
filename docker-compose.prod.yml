@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+    motoring-meter-api-prod:
+        build: 
+            context: ./motoring-meter-api
+            dockerfile: Dockerfile.prod
+        volumes:
+            - ./motoring-meter-api:/usr/src/app
+            - /usr/src/app/node_modules
+        ports:
+            - 81:3001
+        networks: 
+            motoring-meter-prod-net: 
+                aliases: 
+                    - motoring-meter-api
+    motoring-meter-ui-prod:
+        build: 
+            context: ./motoring-meter-ui
+            dockerfile: Dockerfile.prod
+        volumes:
+            - ./motoring-meter-ui:/usr/src/app:rw
+            - /usr/src/app/node_modules
+        ports:
+            - 80:80
+        networks: 
+            - motoring-meter-prod-net
+networks: 
+    motoring-meter-prod-net:
+        name: motoring-meter-prod-net
