@@ -1,3 +1,70 @@
-.App {
-  text-align: center;
+h1 {
+  font-family: "Limelight", cursive;
+  font-size: 32px;
+  width: 360px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.inputDiv {
+  text-align: left;
+  margin: auto;
+  width: 360px;
+  padding: 10px;
+}
+
+select::-ms-expand {
+  display: none;
+}
+select {
+  width: 360px;
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 5px;
+  border: 2px solid rgb(1, 151, 144);
+  border-radius: 8px;
+  font: inherit;
+  line-height: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(
+      45deg,
+      transparent 50%,
+      rgb(1, 151, 144) 50%
+    ),
+    linear-gradient(135deg, rgb(1, 151, 144) 50%, transparent 50%);
+  background-position: right 18px top 12px, right 10px top 12px;
+  background-size: 8px 8px, 8px 8px;
+}
+
+input {
+  background-color: rgb(1, 151, 144);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  padding: 5px;
+  float: right;
+  width: 275px;
+}
+
+footer {
+  font-family: "Limelight", cursive;
+  font-size: 18px;
+  width: 360px;
+  height: 22px;
+  margin: auto;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
