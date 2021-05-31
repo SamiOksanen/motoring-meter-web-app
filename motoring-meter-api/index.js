@@ -16,32 +16,43 @@ function countFuelConsumption(carId, distance, speed) {
 
 function getConsumptionDesc(consumption) {
     let consumptionNum = Math.round(Number(consumption.toString().replace('+', '').replace('-', '')) * 100) / 100;
-    let consumptionDesc = '';
+    let consumptionDesc = ' litres per 100km';
     if (consumption.toString().startsWith('+-')) {
-        consumptionDesc = ' less';
+        consumptionDesc += ' less';
     } else if (consumption.toString().startsWith('+')) {
-        consumptionDesc = ' more';
+        consumptionDesc += ' more';
     }
-    return consumptionNum.toString() + ' litres per 100km' + consumptionDesc;
+    return consumptionNum.toString() + consumptionDesc;
 }
 
 function countDuration(distance, speed) {
     let duration = distance / speed;
-    return { "value": duration, "desc": getDurationDesc(duration.toString()) };
+    return { "value": duration, "desc": getDurationDesc(duration) };
 }
 
 function getDurationDesc(duration) {
-    let durationDesc = '';
-    if (duration.toString().startsWith('+-')) {
-        durationDesc = ' faster';
-    } else if (duration.startsWith('+')) {
-        durationDesc = ' slower';
-    }
-    const durationNum = Number(duration.replace('+', '').replace('-', ''));
-    let durationInMin = durationNum * 60;
+    const durationNum = Number(duration.toString().replace('+', '').replace('-', ''));
+    let durationInMin = Math.round(durationNum * 60);
     let mins = durationInMin % 60;
     let hours = (durationInMin - mins) / 60;
-    return hours + " hours and " + Math.round(mins) + " minutes" + durationDesc;
+
+    let durationDesc = '';
+    if (hours !== 0) {
+        durationDesc = hours + (hours === 1 ? ' hour ' : ' hours');
+    }
+    if (mins !== 0) {
+        if (durationDesc.length > 0) {
+            durationDesc += ' and ';
+        }
+        durationDesc += mins + (mins === 1 ? ' minute' : ' minutes');
+    }
+    if (duration.toString().startsWith('+-')) {
+        durationDesc += ' faster';
+    } else if (duration.toString().startsWith('+')) {
+        durationDesc += ' slower';
+    }
+
+    return durationDesc;
 }
 
 app.get('/consumption', cors(), (req, res) => {
