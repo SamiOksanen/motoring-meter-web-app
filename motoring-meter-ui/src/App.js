@@ -2,7 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 
 function App() {
-    const api = 'http://' + window.location.hostname + ':' + (Number(window.location.port ? window.location.port : 80) + 1);
+    const api = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : '/api';
 
     const [car, setCar] = useState([{ id: '', desc: '', baseConsumption: 0, consumptionExponent: 0 }]);
 

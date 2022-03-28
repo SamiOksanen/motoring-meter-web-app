@@ -7,12 +7,10 @@ services:
         volumes:
             - ./motoring-meter-api:/usr/src/app
             - /usr/src/app/node_modules
-        ports:
-            - 3001:3001
         networks: 
-            motoring-meter-dev-net: 
-                aliases: 
-                    - motoring-meter-api
+            - motoring-meter-dev-net
+        ports:
+            - "3001:3001"
     motoring-meter-ui:
         build: 
             context: ./motoring-meter-ui
@@ -20,12 +18,13 @@ services:
         volumes:
             - ./motoring-meter-ui:/usr/src/app:rw
             - /usr/src/app/node_modules
-        ports:
-            - 3000:3000
         networks: 
             - motoring-meter-dev-net
         environment:
             - CHOKIDAR_USEPOLLING=true
+            - REACT_APP_API_URL=http://localhost:3001
+        ports:
+            - "3000:3000"
 networks: 
     motoring-meter-dev-net:
         name: motoring-meter-dev-net

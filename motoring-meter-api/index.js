@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
+
 const app = express();
+const port = 3001;
 
 const cars = [
     { "id": "1", "desc": "Auto A: 3l / 100km", "baseConsumption": 3, "consumptionExponent": 1.009 },
@@ -75,7 +77,7 @@ app.get('/cars', cors(), (req, res) => {
     res.send(cars);
 });
 
-app.listen(3001, () => {
-    console.log('Server listening port 3001');
+app.listen(port, () => {
+    console.log(`Server listening port ${port}`);
 });
 

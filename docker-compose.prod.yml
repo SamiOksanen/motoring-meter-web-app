@@ -7,12 +7,8 @@ services:
         volumes:
             - ./motoring-meter-api:/usr/src/app
             - /usr/src/app/node_modules
-        ports:
-            - 81:3001
         networks: 
-            motoring-meter-prod-net: 
-                aliases: 
-                    - motoring-meter-api
+            - motoring-meter-prod-net
     motoring-meter-ui-prod:
         build: 
             context: ./motoring-meter-ui
@@ -20,10 +16,22 @@ services:
         volumes:
             - ./motoring-meter-ui:/usr/src/app:rw
             - /usr/src/app/node_modules
-        ports:
-            - 80:80
         networks: 
             - motoring-meter-prod-net
+    motoring-meter-proxy-prod:
+        build:
+            context: ./motoring-meter-proxy
+        depends_on: 
+            - "motoring-meter-api-prod"
+            - "motoring-meter-ui-prod"
+        volumes:
+            - ./motoring-meter-proxy/nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./motoring-meter-proxy/logs/access.log:/var/log/nginx/access.log
+            - ./motoring-meter-proxy/logs/error.log:/var/log/nginx/error.log
+        networks:
+            - motoring-meter-prod-net
+        ports:
+            - "80:80"
 networks: 
     motoring-meter-prod-net:
         name: motoring-meter-prod-net
